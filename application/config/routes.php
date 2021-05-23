@@ -59,6 +59,8 @@ $route['download/(:any)'] = 'export/download/$1';
 
 $route['pengaturan/klasifikasi'] = 'pengaturan/jabatan';
 
+$route['pengaturan/tampilan'] = 'pengaturan/tampilan';
+
 $route['buat-surat'] = 'bs';
 $route['unduh-surat'] = 'bs/download';
 

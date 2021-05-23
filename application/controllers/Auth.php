@@ -11,10 +11,13 @@ class Auth extends CI_Controller
         // rules for form validation
         $this->form_validation->set_rules('username', 'Username', 'required|trim');
         $this->form_validation->set_rules('pass', 'Password', 'required|trim');
+        
+        $gambar_login = $this->db->get_where('pengaturan', ['key' => 'gambar_login'])->row_array()['value'];
 
         // if validation:false
         if ($this->form_validation->run() == false) {
             $data['judul'] =  'Halaman Login';
+            $data['gambar_login'] = $gambar_login;
             $this->load->view('auth/header', $data);
             $this->load->view('auth/index', $data);
             $this->load->view('auth/footer');

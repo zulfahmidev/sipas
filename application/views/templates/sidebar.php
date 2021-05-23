@@ -27,6 +27,7 @@
         <?php endif; ?>
         <a class="collapse-item" href="<?= base_url('pengaturan/klasifikasi') ?>">Klasifikasi</a>
         <a class="collapse-item" href="<?= base_url('pengaturan/sifat') ?>">Sifat Surat</a>
+        <a class="collapse-item" href="<?= base_url('pengaturan/tampilan') ?>">Tampilan</a>
       </div>
     </div>
   </li>

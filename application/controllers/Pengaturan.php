@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Pengaturan extends CI_Controller
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -10,6 +11,68 @@ class Pengaturan extends CI_Controller
 
         $this->user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $this->load->model('Pengaturan_model', 'pengaturan');
+    }
+
+    // Tampilan
+    public function tampilan() {
+        is_admin();
+
+        $gambar_login = $this->db->get_where('pengaturan', ['key' => 'gambar_login'])->row_array()['value'];
+
+        $data = [
+            'user' => $this->user,
+            'judul' => 'Pengaturan Tampilan',
+            'gambar_login' => $gambar_login
+        ];
+
+        $this->simpanPerubahan();
+        $this->template->render_page('settings/tampilan', $data);
+    }
+
+    public function simpanPerubahan() {
+        if (isset($_POST['submit'])) {
+            if (isset($_FILES['gambar_login'])) {
+                $target_dir = "assets/img/";
+                $image = $_FILES["gambar_login"];
+                echo $image['name'];
+                $target_file = $target_dir . basename($image["name"]);
+                $uploadOk = 1;
+                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                $filename = 'gambar_login'.'.'.$imageFileType;
+
+                // Check if image file is a actual image or fake image
+                if(isset($_POST["submit"])) {
+                    $check = getimagesize($image["tmp_name"]);
+                    if($check !== false) {
+                        // echo "File is an image - " . $check["mime"] . ".";
+                        $uploadOk = 1;
+                    } else {
+                        // echo "File is not an image.";
+                        $uploadOk = 0;
+                    }
+                }
+
+                // Allow certain file formats
+                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+                    $this->session->set_flashdata('error',  "Sorry, only JPG, JPEG, & PNG files are allowed.");
+                    $uploadOk = 0;
+                }
+
+                // Check if $uploadOk is set to 0 by an error
+                if ($uploadOk == 0) {
+                    $this->session->set_flashdata('error',  "Sorry, your file was not uploaded.");
+                    // if everything is ok, try to upload file
+                } else {
+                    if (move_uploaded_file($image["tmp_name"], $target_dir.$filename)) {
+                        $this->session->set_flashdata('success',  "Perubahan berhasil disimpan");
+                    } else {
+                        $this->session->set_flashdata('error',  "Sorry, there was an error uploading your file.");
+                    }
+                }
+                redirect('pengaturan/tampilan');
+            }
+        }
+        
     }
 
     // Pengguna
