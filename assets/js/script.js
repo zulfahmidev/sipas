@@ -3,38 +3,33 @@ let app = new Vue({
     data: {
         content: '',
         html: '',
+        mode: 0,
         editor,
     },
     methods: {
         async cetak() {
-            this.html = document.querySelector('#surat').innerHTML + this.editor.getData();
-            await console.log(this.html)
-            document.querySelector('#surat').classList.remove('create');
+            if (this.mode == 1) this.view();
+            this.html = document.querySelector('#surat').innerHTML;
+            await console.log(this.html);
             document.querySelector('#form').submit();
-            document.querySelector('#surat').classList.add('create');
         },
         select(s) {
             return document.querySelector(s);
         },
+        edit() {
+            document.querySelector('#view').classList.remove('fr-view');
+            this.editor = new FroalaEditor('#edit');
+            this.mode = 1;
+        },
+        view() {
+            document.querySelector('#view').classList.add('fr-view');
+            this.editor.destroy();
+            this.mode = 0;
+        }
     },
     created() {
     },
     mounted() {
-        DecoupledEditor
-        .create( this.select( '#editor' ), {
-            ckfinder: {
-                uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
-            },
-            toolbar: [ 'heading', '|', 'fontfamily','fontsize','fontcolor','fontbackgroundcolor','|','bold','italic','underline','strikethrough','|','alignment','|','numberedlist','bulletedlist','|','outdent','indent','|','link','blockquote','ckfinder','inserttable','mediaembed','|','undo','redo']
-        } )
-        .then( editor => {
-            const toolbarContainer = this.select( '#toolbar-container' );
-            toolbarContainer.appendChild( editor.ui.view.toolbar.element );
-
-            this.editor = editor;
-        } )
-        .catch( error => {
-            console.error( error );
-        } );
+        
     }
 })

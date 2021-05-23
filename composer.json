@@ -12,7 +12,6 @@
 	},
 	"require": {
 		"php": ">=5.3.7",
-		"dompdf/dompdf": "^1.0",
 		"mpdf/mpdf": "^8.0"
 	},
 	"suggest": {

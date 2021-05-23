@@ -1,130 +1,44 @@
 #surat {
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Times New Roman';
   color: #000;
-  width: 987px;
+  width: 800px;
   height: 1234px;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-rows: 120px 40px auto;
-      grid-template-rows: 120px 40px auto;
-  font-size: 12px;
+  padding: 2rem 0;
+  line-height: 1.2rem;
+  font-size: 20px;
 }
 
-#surat #toolbar-container {
-  display: none;
-}
-
-#surat #body:focus {
-  outline: none;
-  background-color: #f5f5f5;
-  padding: 1rem;
-}
-
-#surat .ce:focus {
-  outline: none;
-  background-color: #f1f1f1;
-  border-radius: 4px;
-}
-
-#surat table th {
-  text-align: center;
-}
-
-#surat .ifNotPrint {
-  display: none;
-}
-
-#surat.create {
-  font-size: 20px !important;
-  line-height: 1.5rem;
-}
-
-#surat.create #toolbar-container {
-  display: block !important;
-}
-
-#surat.create #editor {
-  display: block !important;
-}
-
-#surat.create h2 {
-  font-size: 27.3px;
-}
-
-#surat.create h3 {
-  font-size: 21px;
-}
-
-#surat.create .head h2 {
-  font-size: 25px;
-}
-
-#surat.create .ifNotPrint {
-  display: inline-block;
-}
-
-#surat p {
-  margin: 0;
+#surat .fr-box.fr-basic .fr-element.fr-view {
+  font-family: "Times New Roman", Georgia, Serif;
+  font-size: 18px;
+  color: #000;
 }
 
 #surat .header {
-  border-bottom: 4px double #000;
+  padding: .5rem 0;
 }
 
-#surat .header p, #surat .header h2, #surat .header h3 {
+#surat .header img {
+  height: 110px;
+}
+
+#surat .header h1, #surat .header h2, #surat .header h3, #surat .header h4, #surat .header h5, #surat .header h6,
+#surat .header .h1, #surat .header .h2, #surat .header .h3, #surat .header .h4, #surat .header .h5, #surat .header .h6,
+#surat .header p {
   margin: 0;
 }
 
-#surat h2, #surat h3, #surat h4 {
-  font-weight: bold;
-  margin: 0;
+#surat h1, #surat h2, #surat h3, #surat h4, #surat h5, #surat h6,
+#surat .h1, #surat .h2, #surat .h3, #surat .h4, #surat .h5, #surat .h6 {
+  font-weight: bold !important;
+  margin-top: 1rem;
 }
 
-#surat .body ol {
-  padding-left: 1.5rem;
-  margin: 0;
-  list-style-position: outside;
+#surat h1, #surat .h1 {
+  font-size: 2.3rem;
 }
 
-#surat .body .head {
-  text-align: center;
-  padding: 1rem 0;
-}
-
-#surat .t2 {
-  text-align: justify;
-}
-
-#surat .t2 td {
-  vertical-align: top;
-  padding-bottom: .2rem;
-}
-
-#surat .t2 td * {
-  vertical-align: top;
-  padding-bottom: .2rem;
-}
-
-#surat .tugas {
-  width: 100%;
-  margin-top: .2rem;
-  border-collapse: collapse;
-  border: 1px solid black;
-}
-
-#surat .tugas th, #surat .tugas td {
-  padding: .3rem;
-  border: 1px solid black;
-}
-
-#surat .tt {
-  width: 200px;
-  margin: auto;
-  margin-top: 3rem;
-  margin-right: 0;
-}
-
-#surat .tt p {
-  margin: 0;
+#surat h2 {
+  font-size: 1.7rem;
 }
 /*# sourceMappingURL=surat.css.map */

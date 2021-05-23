@@ -21,8 +21,14 @@ class Bs extends CI_Controller
         $mpdf = new \Mpdf\Mpdf();
         $mpdf->SetTitle($title);
         $mpdf->WriteHTML($_POST['html']);
-        return $mpdf->Output($filename, 'D');
+        return $mpdf->Output($filename, 'I');
     }
+
+    // public function download() {
+    //     $this->load->library('Pdf');
+    //     $data['html'] = $_POST['html'];
+    //     $this->load->view('view_file', $data);
+    // }
 
     public function index() {
         $data = [
