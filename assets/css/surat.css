@@ -2,7 +2,7 @@
   font-family: 'Times New Roman';
   color: #000;
   width: 800px;
-  height: 1234px;
+  min-height: 1234px;
   padding: 2rem 0;
   line-height: 1.2rem;
   font-size: 20px;

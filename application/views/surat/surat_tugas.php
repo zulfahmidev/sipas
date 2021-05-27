@@ -34,9 +34,10 @@
         </table>
     </div>
     <div id="view" class="fr-view">
-        <?php require_once(APPPATH.'views/editor/basic.php') ?>
+        <div id="editor">
+            <div id='edit' ref="html">
+
+            </div>
+        </div>
     </div>
-    <!-- <div>
-        <div id="content"></div>
-    </div> -->
 </div>

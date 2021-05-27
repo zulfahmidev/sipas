@@ -4,9 +4,9 @@
   <!-- Sidebar - Brand -->
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
     <div class="sidebar-brand-icon">
-      <i class="fas fa-mail-bulk"></i>
+      <img src="<?= base_url("assets/") ?>img/main/<?= $logo ?>" height="45" alt="">
     </div>
-    <div class="sidebar-brand-text mx-3">PERSURATAN PNBP<sup>MA-RI</sup></div>
+    <div class="sidebar-brand-text mx-3"><?= $web_name ?></div>
   </a>
 
 

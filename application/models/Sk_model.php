@@ -119,7 +119,7 @@ class Sk_model extends CI_Model
             // konfigurasi
             $config['upload_path']          = './uploads/';
             $config['allowed_types']        = 'pdf|jpg|png';
-            $config['max_size']             = 2000;
+            $config['max_size']             = 0;
 
             // load library upload
             $this->load->library('upload', $config);
