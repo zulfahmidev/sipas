@@ -7,9 +7,10 @@
 </div>
 <script src="<?= base_url('assets/vendor/vue.js') ?>"></script>
 <script src="<?= base_url('assets/js/script.js') ?>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.16/mammoth.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx2html@1.1.0/src/index.js"></script>
 
 <!-- froala -->
-
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
 <script type="text/javascript" src="<?= base_url('assets/') ?>/vendor/froala/js/froala_editor.min.js"></script>

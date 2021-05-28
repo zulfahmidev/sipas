@@ -33,7 +33,7 @@
             </tr>
         </table>
     </div>
-    <div id="view" class="fr-view">
+    <div id="view" class="fr-view pt-2">
         <div id="editor">
             <div id='edit' ref="html">
 
