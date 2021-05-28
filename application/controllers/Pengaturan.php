@@ -17,62 +17,106 @@ class Pengaturan extends CI_Controller
     public function tampilan() {
         is_admin();
 
+        $web_name = $this->db->get_where('pengaturan', ['key' => 'web_name'])->row_array()['value'];
+        $logo = $this->db->get_where('pengaturan', ['key' => 'logo'])->row_array()['value'];
         $gambar_login = $this->db->get_where('pengaturan', ['key' => 'gambar_login'])->row_array()['value'];
 
         $data = [
             'user' => $this->user,
             'judul' => 'Pengaturan Tampilan',
-            'gambar_login' => $gambar_login
+            'web_name' => $web_name,
+            'gambar_login' => $gambar_login,
+            'logo' => $logo,
         ];
 
-        $this->simpanPerubahan();
+        $this->simpanPerubahan($data);
         $this->template->render_page('settings/tampilan', $data);
     }
 
-    public function simpanPerubahan() {
+    public function simpanPerubahan($data) {
         if (isset($_POST['submit'])) {
-            if (isset($_FILES['gambar_login'])) {
-                $target_dir = "assets/img/";
-                $image = $_FILES["gambar_login"];
-                echo $image['name'];
-                $target_file = $target_dir . basename($image["name"]);
-                $uploadOk = 1;
-                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-                $filename = 'gambar_login'.'.'.$imageFileType;
+            $alerts = [];
+            
+            if ($_POST['web_name'] != '') {
+                $this->db->set('value', $_POST['web_name']);
+                $this->db->where('key', 'web_name');
+                $this->db->update('pengaturan');
+            }
+            
+            $this->simpanGambar('logo', $alerts, $data);
+            $this->simpanGambar('gambar_login', $alerts, $data);
+            // var_dump($alerts);
+            // die;
+            $this->session->set_flashdata('alerts', $alerts);
+            redirect('pengaturan/tampilan');
+        }
+    }
 
-                // Check if image file is a actual image or fake image
-                if(isset($_POST["submit"])) {
-                    $check = getimagesize($image["tmp_name"]);
-                    if($check !== false) {
-                        // echo "File is an image - " . $check["mime"] . ".";
-                        $uploadOk = 1;
-                    } else {
-                        // echo "File is not an image.";
-                        $uploadOk = 0;
-                    }
-                }
+    private function simpanGambar($index, &$alerts, $data = []) {
+        if (isset($_FILES[$index])) {            
+            $image = $_FILES[$index];
+            $uploadOk = 1;
+            
+            if ($image["tmp_name"] == "") return false;
+            
+            // Check if image file is a actual image or fake image
+            $check = getimagesize($image["tmp_name"]);
+            if($check == "") {
+                $alerts[] = [
+                    "index" => $index,
+                    "type" => "danger",
+                    "message" => "Sorry, only JPG, JPEG, & PNG files are allowed.",
+                ];
+                return false;
+            }
+            // var_dump($image);
 
-                // Allow certain file formats
-                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-                    $this->session->set_flashdata('error',  "Sorry, only JPG, JPEG, & PNG files are allowed.");
-                    $uploadOk = 0;
-                }
+            $target_dir = "assets/img/main/";
+            $target_file = $target_dir . basename($image["name"]);
+            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+            $filename = $index . time() .'.'.$imageFileType;
 
-                // Check if $uploadOk is set to 0 by an error
-                if ($uploadOk == 0) {
-                    $this->session->set_flashdata('error',  "Sorry, your file was not uploaded.");
-                    // if everything is ok, try to upload file
+            // Allow certain file formats
+            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+                $alerts[] = [
+                    "index" => $index,
+                    "type" => "danger",
+                    "message" => "Sorry, only JPG, JPEG, & PNG files are allowed.",
+                ];
+                return false;
+            }
+
+            // Check if $uploadOk is set to 0 by an error
+            if ($uploadOk == 0) {
+                $alerts[] = [
+                    "index" => $index,
+                    "type" => "danger",
+                    "message" => "Sorry, your file was not uploaded.",
+                ];
+                return false;
+                // if everything is ok, try to upload file
+            } else {
+                if (move_uploaded_file($image["tmp_name"], $target_dir.$filename)) {
+                    unlink('assets/img/main/'.$data[$index]);
+                    $alerts[] = [
+                        "index" => $index,
+                        "type" => "success",
+                        "message" => "Perubahan berhasil disimpan.",
+                    ];
+                    $this->db->set('value', $filename);
+                    $this->db->where('key', $index);
+                    $this->db->update('pengaturan');
+                    return true;
                 } else {
-                    if (move_uploaded_file($image["tmp_name"], $target_dir.$filename)) {
-                        $this->session->set_flashdata('success',  "Perubahan berhasil disimpan");
-                    } else {
-                        $this->session->set_flashdata('error',  "Sorry, there was an error uploading your file.");
-                    }
+                    $alerts[] = [
+                        "index" => $index,
+                        "type" => "danger",
+                        "message" => "Sorry, your file was not uploaded.",
+                    ];
+                    return false;
                 }
-                redirect('pengaturan/tampilan');
             }
         }
-        
     }
 
     // Pengguna

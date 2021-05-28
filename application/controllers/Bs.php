@@ -31,9 +31,13 @@ class Bs extends CI_Controller
     // }
 
     public function index() {
+        $web_name = $this->db->get_where('pengaturan', ['key' => 'web_name'])->row_array()['value'];
+        $logo = $this->db->get_where('pengaturan', ['key' => 'logo'])->row_array()['value'];
         $data = [
             'user' => $this->user,
-            'judul' => 'Buat Surat'
+            'judul' => 'Buat Surat',
+            'web_name' => $web_name,
+            'logo' => $logo,
         ];
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

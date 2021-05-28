@@ -60,7 +60,7 @@
                         <div class="custom-file">
                             <input type="file" name="file" class="custom-file-input" id="file">
                             <label class="custom-file-label" for="file">Choose file</label>
-                            <small class="text-sm text-info">Format file yang diizinkan .jpg, .png, .pdf dan ukuran maks 2 MB!</small>
+                            <!-- <small class="text-sm text-info">Format file yang diizinkan .jpg, .png, .pdf dan ukuran maks 2 MB!</small> -->
                         </div>
                         <?= $this->session->flashdata('err'); ?>
                     </div>

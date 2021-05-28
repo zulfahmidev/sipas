@@ -7,7 +7,7 @@
 <div class="row mt-4">
     <div class="col-12">
 
-        <h3 class="judul h3 text-gray-800">Daftar <?= $judul ?></h3>
+        <h3 class="judul h3 text-gray-800"><?= $judul ?></h3>
 
         <div class="card shadow mb-4">
 
@@ -20,4 +20,6 @@
                 <button @click="cetak" class="btn btn-primary shadow-sm"><i class="fas fa-fw fa-print"></i> Cetak Surat</button>
                 <button @click="edit" v-if="mode == 0" class="btn btn-primary shadow-sm"><i class="fas fa-fw fa-edit"></i> Edit Surat</button>
                 <button @click="view" v-if="mode == 1" class="btn btn-primary shadow-sm"><i class="fas fa-fw fa-eye"></i> View Surat</button>
+                <button @click="importHTML" class="btn btn-primary shadow-sm"><i class="fas fa-fw fa-file-import"></i> Import</button>
+                <input type="file" id="file_upload" style="display: none;">
             </div>
