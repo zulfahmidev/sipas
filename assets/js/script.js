@@ -22,15 +22,14 @@ let app = new Vue({
             fileUpload.onchange = (e) => {
                 let file = fileUpload.files[0];
                 
-                // console.log(file);
                 if (file) {
                     let reader = new FileReader();
                     let vue = this;
                     
                     reader.onload = function() {
-                        mammoth.embedStyleMap({arrayBuffer: this.result}, "p[style-name='Section Title'] => h1:fresh")
+                        mammoth.convertToHtml({arrayBuffer: this.result})
                         .then(function(docx) {
-                            console.log(docx);
+                            document.querySelector('#edit').innerHTML = docx.value;
                             // fs.writeFile(destinationPath, docx.toBuffer(), callback);
                         });
                     }
