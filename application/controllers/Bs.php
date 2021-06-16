@@ -16,11 +16,12 @@ class Bs extends CI_Controller
 
         $filename = 'SuratTugas.pdf';
         $title = 'Surat Tugas';
+        
+        $html = $_POST['html'];
 
-        // var_dump($_POST['html']);
         $mpdf = new \Mpdf\Mpdf();
         $mpdf->SetTitle($title);
-        $mpdf->WriteHTML($_POST['html']);
+        $mpdf->WriteHTML($html);
         return $mpdf->Output($filename, 'I');
     }
 

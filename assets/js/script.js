@@ -5,6 +5,7 @@ let app = new Vue({
         html: '',
         mode: 0,
         editor,
+        kop: 0,
     },
     methods: {
         async cetak() {
@@ -16,24 +17,26 @@ let app = new Vue({
         select(s) {
             return document.querySelector(s);
         },
+        switchKop() {
+            this.kop = (this.kop == 0) ? 1 : 0;
+        },
         importHTML() {
             let fileUpload = document.querySelector('#file_upload');
             fileUpload.click();
             fileUpload.onchange = (e) => {
                 let file = fileUpload.files[0];
+                console.log(file);
                 
                 if (file) {
-                    let reader = new FileReader();
-                    let vue = this;
-                    
-                    reader.onload = function() {
-                        mammoth.convertToHtml({arrayBuffer: this.result})
-                        .then(function(docx) {
-                            document.querySelector('#edit').innerHTML = docx.value;
-                            // fs.writeFile(destinationPath, docx.toBuffer(), callback);
-                        });
+
+                    if (file.type == 'text/html') {
+                        let reader = new FileReader();
+                        
+                        reader.onload = function() {
+                            document.querySelector('#edit').innerHTML = this.result;
+                        }
+                        reader.readAsText(file);
                     }
-                    reader.readAsArrayBuffer(file);
                 }
             }
         },
